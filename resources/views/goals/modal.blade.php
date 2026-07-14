@@ -1,0 +1,6 @@
+<div class="modal fade" id="goalModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-lg"><form class="modal-content" method="POST" action="{{ route('goals.store') }}">@csrf
+<div class="modal-header bg-dark text-white"><h4>Create New Goal</h4><button class="btn-close btn-close-white" data-bs-dismiss="modal" type="button"></button></div>
+<div class="modal-body"><input type="hidden" name="student_id" value="{{ $student?->id }}"><label>Goal Title</label><input class="form-control mb-3" name="title" required>
+<div class="row g-3"><div class="col-md-6"><label>Category</label><select name="category" class="form-select"><option>Academics</option><option>Attendance</option><option>Behavior</option><option>Focus</option></select></div><div class="col-md-6"><label>Due Date</label><input type="date" class="form-control" name="due_date" value="{{ now()->addWeek()->toDateString() }}"></div>
+<div class="col-md-6"><label>Target / Frequency</label><input class="form-control" name="target"></div><div class="col-md-6"><label>Success Criteria</label><input class="form-control" name="success_criteria"></div></div></div>
+<div class="modal-footer"><button class="btn btn-light" data-bs-dismiss="modal" type="button">Cancel</button><button class="btn btn-dark">Add This Goal</button></div></form></div></div>

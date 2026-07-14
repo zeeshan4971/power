@@ -1,0 +1,4 @@
+<?php
+namespace App\Http\Controllers;
+use App\Models\User; use Illuminate\Http\Request; use Illuminate\Support\Facades\Auth;
+class AuthController extends Controller { public function login(){return view('auth.login');} public function register(){return view('auth.register');} public function doRegister(Request $r){$d=$r->validate(['name'=>'required','email'=>'required|email|unique:users','password'=>'required|min:6|confirmed']); $u=User::create($d+['role'=>'parent']); Auth::login($u); return redirect()->route('dashboard');} public function doLogin(Request $r){$d=$r->validate(['email'=>'required|email','password'=>'required']); if(Auth::attempt($d,$r->boolean('remember'))){$r->session()->regenerate(); return redirect()->route('dashboard');} return back()->withErrors(['email'=>'Invalid login details']);} public function logout(Request $r){Auth::logout(); $r->session()->invalidate(); $r->session()->regenerateToken(); return redirect()->route('login');}}
