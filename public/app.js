@@ -14,11 +14,41 @@
     setupRewardOptions();
     setupBrowserNotifications();
     setupGuidedTour();
+    setupServerToasts();
+    setupModalStacking();
   };
 
   window.addEventListener('load', () => setTimeout(ready, 120));
   setTimeout(() => document.body.classList.add('app-ready'), 1600);
 
+
+  function setupServerToasts() {
+    const messages = window.PowerGuardServerMessages || {};
+    if (messages.success) showToast(messages.success, 'success');
+    if (messages.error) showToast(messages.error, 'danger');
+    if (messages.warning) showToast(messages.warning, 'warning');
+    if (messages.validation) showToast(messages.validation, 'danger');
+  }
+
+  function setupModalStacking() {
+    document.querySelectorAll('.modal').forEach(modal => {
+      if (modal.parentElement !== document.body) document.body.appendChild(modal);
+    });
+
+    document.addEventListener('show.bs.modal', event => {
+      const modal = event.target;
+      if (modal.parentElement !== document.body) document.body.appendChild(modal);
+    });
+
+    document.addEventListener('hidden.bs.modal', () => {
+      if (!document.querySelector('.modal.show')) {
+        document.querySelectorAll('.modal-backdrop').forEach(item => item.remove());
+        document.body.classList.remove('modal-open');
+        document.body.style.removeProperty('padding-right');
+        document.body.style.removeProperty('overflow');
+      }
+    });
+  }
   function setupReveal() {
     const items = [...document.querySelectorAll('.card-box,.goal-row,.teacher-goal-row,.child-access-row,.teacher-request-banner,.weekly-box,.feedback-item,.past-item')];
     if (!('IntersectionObserver' in window)) {

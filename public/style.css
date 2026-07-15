@@ -257,3 +257,14 @@ input[type="range"]:active::-webkit-slider-thumb{transform:scale(1.22);box-shado
 
 @media(max-width:991px){.teacher-request-card{grid-template-columns:1fr}.teacher-request-actions .btn-black{width:100%}.teacher-goal-update-form{grid-template-columns:1fr}.teacher-role-content{max-width:none}}
 @media(max-width:575px){.teacher-alert-banner,.section-heading-row{align-items:flex-start;flex-direction:column}.teacher-alert-banner .btn{width:100%}.teacher-stat-number{font-size:38px}}
+
+/* Bootstrap modal stacking fix */
+.modal { z-index: 1065 !important; }
+.modal.show { display: block; }
+.modal-backdrop { z-index: 1060 !important; }
+.modal-dialog { position: relative; z-index: 1066; }
+.modal-content { pointer-events: auto; }
+body.modal-open .sidebar,
+body.modal-open .topbar,
+body.modal-open .teacher-topbar { z-index: 1030 !important; }
+#appToastContainer { z-index: 20000 !important; }

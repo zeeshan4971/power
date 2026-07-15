@@ -20,7 +20,16 @@
 
     @include('partials.onboarding')
 
-    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="appToastContainer"></div>
+    <div class="toast-container position-fixed top-0 end-0 p-3" id="appToastContainer" style="z-index: 20000"></div>
+
+    <script>
+        window.PowerGuardServerMessages = {{ Js::from([
+        'success' => session('success'),
+        'error' => session('error'),
+        'warning' => session('warning'),
+        'validation' => $errors->any() ? $errors->first() : null,
+    ]) }};
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @auth
